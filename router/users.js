@@ -5,7 +5,7 @@ const passport = require("passport");
 const User = require("../models/user");
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, saveRedirectUrl } = require("../middleware");
 
 
 router.get("/", (req, res) => {
@@ -15,17 +15,14 @@ router.get("/signin", (req, res) => {
     res.render("./users/login.ejs");
 });
 router.post("/signin",
+    saveRedirectUrl,
     passport.authenticate("local", { failureRedirect: "/signin", failureFlash: true }),
     wrapAsync(async (req, res) => {
-        console.log(req.session.redirectUrl);
-        if (req.session.redirectUrl) {
-            console.log(req.session.redirectUrl);
-            res.redirect(req.session.redirectUrl);
-        } else {
-            req.flash("success", "Welcome to wonderlust! You successfully logedin");
-            res.redirect("/listing");
-        }
-    }));
+        const redirectUrl = res.locals.redirectUrl;
+        req.flash("success", "you are logedin!");
+        res.redirect(redirectUrl);
+    })
+);
 
 router.get("/signup", (req, res) => {
     res.render("./users/signup.ejs");
