@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 const flash = require("connect-flash");
 
 const Listing = require("../models/lists");
+const User = require("./users");
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
 const validateListing = require("../utils/validateListing");
@@ -19,7 +20,9 @@ router.get("/new", isLoggedIn, (req, res) => {
     res.render("./listings/form.ejs");
 });
 router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
-    const newListing = new Listing(req.body.listing);
+    let list = req.body.listing;
+    list.owner = req.user._id;
+    const newListing = new Listing(list);
     await newListing.save();
     req.flash("success", "New Listing Added");
     res.redirect("/listing");
@@ -59,7 +62,6 @@ router.patch("/:id", isLoggedIn, validateListing, wrapAsync(async (req, res) => 
 router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     const deleted = await Listing.findByIdAndDelete(id);
-
     if (!deleted) {
         req.flash("error", "Listing dose not deleted");
         res.redirect(`/listing/${id}`);
@@ -72,7 +74,7 @@ router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
 // Show Listing
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id).populate("reviews");
+    let listing = await Listing.findById(id).populate("reviews").populate("owner");
 
     if (!listing) {
         req.flash("error", "Listing dose not exist");

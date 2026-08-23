@@ -18,7 +18,7 @@ router.post("/signin",
     saveRedirectUrl,
     passport.authenticate("local", { failureRedirect: "/signin", failureFlash: true }),
     wrapAsync(async (req, res) => {
-        const redirectUrl = res.locals.redirectUrl;
+        const redirectUrl = res.locals.redirectUrl || "/listing";
         req.flash("success", "you are logedin!");
         res.redirect(redirectUrl);
     })
