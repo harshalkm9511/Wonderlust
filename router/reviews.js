@@ -6,39 +6,13 @@ const Reviews = require("../models/reviews");
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
 const validateReview = require("../utils/validateReview");
-const { isLoggedIn , isReviewAurthor} = require("../middleware");
+const { isLoggedIn, isReviewAurthor } = require("../middleware");
+const reviewControllers = require("../controllers/reviews");
 
 // create review
-router.post("/",isLoggedIn, validateReview, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
+router.post("/", isLoggedIn, validateReview, wrapAsync(reviewControllers.createReview));
 
-    if (!listing) {
-        throw new ExpressError(404, "Listing dose not exist");
-    }
-
-    let review = new Reviews(req.body.reviews);
-    review.aurthor = req.user._id;
-    listing.reviews.push(review);
-    await review.save();
-    await listing.save();
-
-    res.redirect(`/listing/${id}`);
-}));
-    router.delete("/:reviewId",isReviewAurthor, isLoggedIn, wrapAsync(async (req, res) => {
-        let { id, reviewId } = req.params;
-
-        let updateListing = await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-        let deleteReview = await Reviews.findByIdAndDelete(reviewId);
-
-        if (!updateListing) {
-            throw new ExpressError(404, "Listing not found!");
-        }
-        if (!deleteReview) {
-            throw new ExpressError(404, "Review not found!");
-        }
-
-        res.redirect(`/listing/${id}`);
-    }));
+//delete review
+router.delete("/:reviewId", isReviewAurthor, isLoggedIn, wrapAsync(reviewControllers.destroy));
 
 module.exports = router;
