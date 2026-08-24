@@ -20,10 +20,10 @@ router.get("/new", isLoggedIn, (req, res) => {
     res.render("./listings/form.ejs");
 });
 router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
-    let list = req.body.listing;
-    list.owner = req.user._id;
-    const newListing = new Listing(list);
+    const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
     await newListing.save();
+
     req.flash("success", "New Listing Added");
     res.redirect("/listing");
 }));
@@ -42,33 +42,45 @@ router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
 }));
 router.patch("/:id", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = req.body.listing;
-
+    let listing = await Listing.findById(id);
     if (!listing) {
         throw new ExpressError(404, "Listing not found!");
     }
-    let updateListing = await Listing.findByIdAndUpdate(id, listing);
-    if (!updateListing) {
-        req.flash("error", "Listing dose not updated");
-        res.redirect("/");
-    } else {
-        req.flash("success", "Listing is updated");
-        res.redirect(`/listing/${id}`);
-    }
 
+    if (!(listing.owner._id).equals(req.user._id)) {
+        req.flash("error", "You dont have permission to this edit listing");
+        res.redirect(`/listing/${id}`);
+    } else {
+        let updateListing = await Listing.updateOne({ _id: id }, req.body.listing);
+        if (!updateListing) {
+            req.flash("error", "Listing dose not updated");
+            res.redirect("/");
+        } else {
+            req.flash("success", "Listing is updated");
+            res.redirect(`/listing/${id}`);
+        }
+    }
 }));
 
 // delete Listing
 router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const deleted = await Listing.findByIdAndDelete(id);
-    if (!deleted) {
-        req.flash("error", "Listing dose not deleted");
-        res.redirect(`/listing/${id}`);
-    } else {
-        req.flash("success", "Listing is deleted");
+    let listing = await Listing.findById(id);
+
+    if (!(listing.owner._id).equals(req.user._id)) {
+        req.flash("error", "You don't have permission to delete this listing");
         res.redirect("/listing");
+    } else {
+        const deleted = await Listing.deleteOne({_id:id});
+        if (!deleted) {
+            req.flash("error", "Listing dose not deleted");
+            res.redirect(`/listing/${id}`);
+        } else {
+            req.flash("success", "Listing is deleted");
+            res.redirect("/listing");
+        }
     }
+
 }));
 
 // Show Listing

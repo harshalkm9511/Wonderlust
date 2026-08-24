@@ -20,17 +20,21 @@
                                     <%= listing.country %>
                     </p>
                 </div>
-                <div class="show-btn ">
-                    <div class=" btn">
-                        <a href="/listing/<%= listing._id %>/edit" class="btn btn-outline-secondary edit-btn">Edit</a>
+                
+                 <% if (currUser && (listing.owner._id).equals(currUser._id)) { %>
+                    <div class="show-btn ">
+                        <div class=" btn">
+                            <a href="/listing/<%= listing._id %>/edit" class="btn btn-outline-secondary edit-btn">Edit</a>
 
+                        </div>
+                        <div class="btn">
+                            <form method="post" action="/listing/<%= listing._id %>?_method=DELETE">
+                                <button type="submit" class="btn btn-outline-danger delete-btn">Delete</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="btn">
-                        <form method="post" action="/listing/<%= listing._id %>?_method=DELETE">
-                            <button type="submit" class="btn btn-outline-danger delete-btn">Delete</button>
-                        </form>
-                    </div>
-                </div>
+                 <% } %>
+                
                 <hr>
             </div>
 
