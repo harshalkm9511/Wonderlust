@@ -7,7 +7,7 @@ const User = require("./users");
 const ExpressError = require("../utils/ExpressError");
 const wrapAsync = require("../utils/wrapAsync");
 const validateListing = require("../utils/validateListing");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, isOwner } = require("../middleware");
 
 // show listings
 router.get("/", wrapAsync(async (req, res) => {
@@ -29,7 +29,7 @@ router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
 }));
 
 //edit Listing
-router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
+router.get("/:id/edit",isOwner, isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
 
@@ -40,47 +40,35 @@ router.get("/:id/edit", isLoggedIn, wrapAsync(async (req, res) => {
         res.render("./listings/update.ejs", { listing });
     }
 }));
-router.patch("/:id", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
+router.patch("/:id", isOwner, isLoggedIn, validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id);
-    if (!listing) {
+    if (!req.body.listing) {
         throw new ExpressError(404, "Listing not found!");
     }
 
-    if (!(listing.owner._id).equals(req.user._id)) {
-        req.flash("error", "You dont have permission to this edit listing");
-        res.redirect(`/listing/${id}`);
+    let updateListing = await Listing.updateOne({ _id: id }, req.body.listing);
+    if (!updateListing) {
+        req.flash("error", "Listing dose not updated");
+        res.redirect("/");
     } else {
-        let updateListing = await Listing.updateOne({ _id: id }, req.body.listing);
-        if (!updateListing) {
-            req.flash("error", "Listing dose not updated");
-            res.redirect("/");
-        } else {
-            req.flash("success", "Listing is updated");
-            res.redirect(`/listing/${id}`);
-        }
+        req.flash("success", "Listing is updated");
+        res.redirect(`/listing/${id}`);
     }
+
 }));
 
 // delete Listing
-router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
+router.delete("/:id", isOwner, isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id);
 
-    if (!(listing.owner._id).equals(req.user._id)) {
-        req.flash("error", "You don't have permission to delete this listing");
-        res.redirect("/listing");
+    const deleted = await Listing.deleteOne({ _id: id });
+    if (!deleted) {
+        req.flash("error", "Listing dose not deleted");
+        res.redirect(`/listing/${id}`);
     } else {
-        const deleted = await Listing.deleteOne({_id:id});
-        if (!deleted) {
-            req.flash("error", "Listing dose not deleted");
-            res.redirect(`/listing/${id}`);
-        } else {
-            req.flash("success", "Listing is deleted");
-            res.redirect("/listing");
-        }
+        req.flash("success", "Listing is deleted");
+        res.redirect("/listing");
     }
-
 }));
 
 // Show Listing
