@@ -29,7 +29,7 @@ router.post("/", isLoggedIn, validateListing, wrapAsync(async (req, res) => {
 }));
 
 //edit Listing
-router.get("/:id/edit",isOwner, isLoggedIn, wrapAsync(async (req, res) => {
+router.get("/:id/edit", isOwner, isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
 
@@ -74,7 +74,14 @@ router.delete("/:id", isOwner, isLoggedIn, wrapAsync(async (req, res) => {
 // Show Listing
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findById(id).populate("reviews").populate("owner");
+    let listing = await Listing.findById(id)
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "aurthor"
+            }
+        })
+        .populate("owner");
 
     if (!listing) {
         req.flash("error", "Listing dose not exist");

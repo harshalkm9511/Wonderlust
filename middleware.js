@@ -1,4 +1,5 @@
 const Listing = require("./models/lists");
+const Reviews = require("./models/reviews");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -25,5 +26,15 @@ module.exports.isOwner = async (req, res, next) => {
         req.flash("error", "You are not owner of this listing");
         return res.redirect(`/listing/${id}`);
     }
-    next(); 
+    next();
+};
+
+module.exports.isReviewAurthor = async (req, res, next) => {
+    let { id, reviewId } = req.params;
+    let review = await Reviews.findById(reviewId);
+    if (req.user && !(req.user._id).equals(review.aurthor._id)) {
+        req.flash("error", "you are not aurthor of this review");
+        return res.redirect(`/listing/${id}`);
+    }
+    next();
 }

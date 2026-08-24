@@ -12,6 +12,10 @@ const reviewSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now()
+    },
+    aurthor:{
+        type:Schema.Types.ObjectId,
+        ref:"Users"
     }
 });
 

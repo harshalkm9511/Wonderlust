@@ -112,6 +112,7 @@ hr{
 
 .btn-review{
     width: 400px;
+    margin-bottom: 20px;
 }
 
 .edit-btn, .delete-btn, .post-btn, .review-delete{
@@ -122,7 +123,7 @@ border-radius: 15px !important;
 }
 .show-review{
     background-color:rgb(245, 245, 245);
-    border-radius: 10px;
+    border-radius: 30px;
     margin-top: 20px;
     padding: 20px;
 }

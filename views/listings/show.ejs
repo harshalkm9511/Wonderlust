@@ -46,46 +46,52 @@
                         <% for(let rev of listing.reviews ){%>
                             <div class="show-review ">
                                 <p>
-                                    <i class="fa-solid fa-circle-user"></i><b>@username</b>
+                                    <i class="fa-solid fa-circle-user"></i><b>@<%= rev.aurthor.username %></b>
                                     <br>
-                                    Comment: <%= rev.comment %> <br>
-                                        Rating: <%= rev.rating %>&#9733;<br>
+                                    &nbsp;&nbsp;  Comment: <%= rev.comment %> <br>
+                                    &nbsp;&nbsp; Rating: <%= rev.rating %>&#9733;<br>
                                 </p>
-                                <form method="post"
-                                    action="/listing/<%= listing.id %>/reviews/<%= rev.id %>?_method=DELETE"
-                                    class="reviewDelete">
-                                    <button class="btn btn-dark btn-sm review-delete">Delete</button>
-                                </form>
+                                <% if (currUser && (rev.aurthor._id).equals(currUser._id)) { %>
+                                    <form method="post"
+                                        action="/listing/<%= listing.id %>/reviews/<%= rev.id %>?_method=DELETE"
+                                        class="reviewDelete">
+                                        <button class="btn btn-dark btn-sm review-delete">Delete</button>
+                                    </form>
+                                <% } %>
+                                
                             </div>
                             <% }%>
                     </div>
                 </div>
 
-
-                <div class=" reviewForm ">
-                    <form method="post" action="/listing/<%= listing.id %>/reviews" class="needs-validation" novalidate>
-                        <div class="row">
-                            <div>
-                                <div class="mb-3 ">
-                                    <label for="review" class="form-label">Post Review </label>
-                                    <textarea name="reviews[comment]" id="description" style="height: 100px"
-                                        class="form-control reviewTextarea" required></textarea>
-                                    <div class="invalid-feedback">Write review</div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-4">
-                                        <label for="rating" class="form-label">Rating</label>
-                                        <input type="number" name="reviews[rating]" class="form-control reviewInput"
-                                            required>
-                                        <div class="invalid-feedback">Enter rating </div>
+                <% if (currUser) { %>
+                    <div class=" reviewForm ">
+                        <form method="post" action="/listing/<%= listing.id %>/reviews" class="needs-validation" novalidate>
+                            <div class="row">
+                                <div>
+                                    <div class="mb-3 ">
+                                        <label for="review" class="form-label">Post Review </label>
+                                        <textarea name="reviews[comment]" id="description" style="height: 100px"
+                                            class="form-control reviewTextarea" required></textarea>
+                                        <div class="invalid-feedback">Write review</div>
                                     </div>
-                                    <button type="submit"
-                                        class="btn btn-outline-secondary col-3  createReview post-btn">Post</button>
+                                    <div class="row">
+                                        <div class="mb-3 col-4">
+                                            <label for="rating" class="form-label">Rating</label>
+                                            <input type="number" name="reviews[rating]" class="form-control reviewInput"
+                                                required>
+                                            <div class="invalid-feedback">Enter rating </div>
+                                        </div>
+                                        <button type="submit"
+                                            class="btn btn-outline-secondary col-3  createReview post-btn">Post</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                <% } %>
+
+                
 
             </div>
         </div>
