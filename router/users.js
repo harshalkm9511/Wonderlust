@@ -13,15 +13,15 @@ router.get("/", (req, res) => {
     res.redirect("/listing");
 });
 
-router.get("/signin", userControllers.signin_form);
-router.post("/signin",
-    saveRedirectUrl,
-    passport.authenticate("local", { failureRedirect: "/signin", failureFlash: true }),
-    wrapAsync(userControllers.signin)
-);
+router.route("/signin")
+    .get(userControllers.signin_form)
+    .post(saveRedirectUrl, passport.authenticate("local", { failureRedirect: "/signin", failureFlash: true }),
+        wrapAsync(userControllers.signin));
 
-router.get("/signup", userControllers.signup_form);
-router.post("/signup", wrapAsync(userControllers.signup));
+router.route("/signup")
+    .get(userControllers.signup_form)
+    .post( wrapAsync(userControllers.signup));
+
 
 router.get("/logout", isLoggedIn, userControllers.logout);
 
