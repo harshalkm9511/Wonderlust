@@ -1,7 +1,7 @@
 body {
     display: flexbox;
     flex-wrap: wrap;
-    background-color: azure;
+    background-color: rgb(184, 182, 180) ;
     
 }
 
@@ -137,6 +137,7 @@ border-radius: 15px !important;
     width: 400px;
     height: 250px;
     margin-top: 10px;
+    margin-bottom: 50px;
 }
 .createReview{
     height: 40px;

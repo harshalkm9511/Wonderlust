@@ -49,7 +49,7 @@
                                     <i class="fa-solid fa-circle-user"></i><b>@<%= rev.aurthor.username %></b>
                                     <br>
                                     &nbsp;&nbsp;  Comment: <%= rev.comment %> <br>
-                                    &nbsp;&nbsp; Rating: <%= rev.rating %>&#9733;<br>
+                                    &nbsp;&nbsp; Rating: <p class="starability-result" data-rating="<%= rev.rating %>"></p>
                                 </p>
                                 <% if (currUser && (rev.aurthor._id).equals(currUser._id)) { %>
                                     <form method="post"
@@ -58,7 +58,6 @@
                                         <button class="btn btn-dark btn-sm review-delete">Delete</button>
                                     </form>
                                 <% } %>
-                                
                             </div>
                             <% }%>
                     </div>
@@ -76,10 +75,22 @@
                                         <div class="invalid-feedback">Write review</div>
                                     </div>
                                     <div class="row">
-                                        <div class="mb-3 col-4">
-                                            <label for="rating" class="form-label">Rating</label>
-                                            <input type="number" name="reviews[rating]" class="form-control reviewInput"
-                                                required>
+                                        <div class="mb-3 col-">
+
+                                                <fieldset class="starability-slot">
+                                                    <p>Rating:</p>
+                                                    <input type="radio" id="no-rate" class="input-no-rate" name="reviews[rating]" value="0" checked aria-label="No rating." />
+                                                    <input type="radio" id="first-rate1" name="reviews[rating]" value="1" />
+                                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                                    <input type="radio" id="first-rate2" name="reviews[rating]" value="2" />
+                                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                                    <input type="radio" id="first-rate3" name="reviews[rating]" value="3" />
+                                                    <label for="first-rate3" title="Average">3 stars</label>
+                                                    <input type="radio" id="first-rate4" name="reviews[rating]" value="4" />
+                                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                                    <input type="radio" id="first-rate5" name="reviews[rating]" value="5" />
+                                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                                </fieldset>
                                             <div class="invalid-feedback">Enter rating </div>
                                         </div>
                                         <button type="submit"
