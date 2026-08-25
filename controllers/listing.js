@@ -13,6 +13,7 @@ module.exports.createListing_form = (req, res) => {
 module.exports.createListing = async (req, res) => {
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
+    newListing.image = { url: req.file.path, fileName: req.file.filename };
     await newListing.save();
 
     req.flash("success", "New Listing Added");
@@ -33,11 +34,15 @@ module.exports.updateListing_form = async (req, res) => {
 
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
-    if (!req.body.listing) {
+    let listing = req.body.listing;
+    if (!listing) {
         throw new ExpressError(404, "Listing not found!");
     }
+    if (req.file) {
+        listing.image = { url: req.file.path, fileName: req.file.filename };
+    }
 
-    let updateListing = await Listing.updateOne({ _id: id }, req.body.listing);
+    let updateListing = await Listing.updateOne({ _id: id }, listing);
     if (!updateListing) {
         req.flash("error", "Listing dose not updated");
         res.redirect("/");

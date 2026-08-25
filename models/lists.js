@@ -12,11 +12,8 @@ const listSchema = mongoose.Schema({
         type: String,
     },
     image: {
-        type: String,
-        default: "https://i.sstatic.net/bkC9s.jpg",
-        set: (v) => {
-            return v === "" ? "https://i.sstatic.net/bkC9s.jpg" : v;
-        }
+        url: String,
+        fileName: String
     },
     price: {
         type: Number,
@@ -35,11 +32,11 @@ const listSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Reviews"
     }],
-    owner:{
-        type:Schema.Types.ObjectId,
-        ref:"Users"
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "Users"
     }
-})
+});
 
 listSchema.post("findOneAndDelete", async (listing) => {
     if (listing) {

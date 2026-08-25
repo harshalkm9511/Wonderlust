@@ -1,7 +1,7 @@
 <% layout("layouts/boilarplate") %>
 
     <div class="formContainer">
-        <form method="post" action="http://localhost:8080/listing" class="needs-validation" novalidate>
+        <form method="post" action="http://localhost:8080/listing" class="needs-validation" novalidate enctype="multipart/form-data">
             <div class="row">
                 <div class="col-8 offset-2">
                     <div class="mb-3">
@@ -19,8 +19,8 @@
 
                     <div class="mb-3">
                         <label for="image" class="form-label">Image: </label>
-                        <input type="text" class="form-control" name="listing[image]" id="image"
-                            placeholder="enter image URL/Link" required>
+                        <input type="file" class="form-control" name="listing[image]" id="image"
+                            placeholder="enter image URL/Link"  required >
                             <div class="invalid-feedback">Provide a image URL</div>
                     </div>
 

@@ -3,7 +3,7 @@
     <body>
         <div class="editContainer">
             <form method="post" action="/listing/<%= listing._id %>?_method=PATCH" novalidate
-                class="needs-validation">
+                class="needs-validation" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-8 offset-2">
                         <div class="mb-3">
@@ -22,8 +22,8 @@
 
                         <div class="mb-3">
                             <label for="image" class="form-label">Image: </label>
-                            <input type="text" class="form-control" name="listing[image]" id="image"
-                                value="<%= listing.image%>" required>
+                            <input type="file" class="form-control" name="listing[image]" id="image"
+                                value="<%= listing.image.url%>" >
                             <div class="invalid-feedback">Provide a image URL</div>
                         </div>
 

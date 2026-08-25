@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const flash = require("connect-flash");
+const multer = require("multer");
 
 const Listing = require("../models/lists");
 const User = require("./users");
@@ -11,11 +12,16 @@ const { isLoggedIn, isOwner } = require("../middleware");
 
 const listingControllers = require("../controllers/listing");
 
+const { storage } = require("../cloudConfig");
+const upload = multer({ storage });
+
+
+
 router.route("/")
     // show all listings
     .get(wrapAsync(listingControllers.index))
     //create Listing
-    .post(isLoggedIn, validateListing, wrapAsync(listingControllers.createListing));
+    .post(isLoggedIn, validateListing, upload.single("listing[image]"), wrapAsync(listingControllers.createListing));
 
 //create Listing form
 router.get("/new", isLoggedIn, listingControllers.createListing_form);
@@ -25,7 +31,7 @@ router.get("/:id/edit", isOwner, isLoggedIn, wrapAsync(listingControllers.update
 
 router.route("/:id")
     // update listing
-    .patch(isLoggedIn, isOwner, validateListing, wrapAsync(listingControllers.updateListing))
+    .patch(isLoggedIn, isOwner, validateListing,upload.single("listing[image]"), wrapAsync(listingControllers.updateListing))
     // delete listing
     .delete(isLoggedIn, isOwner, wrapAsync(listingControllers.destroy))
     // show single listing

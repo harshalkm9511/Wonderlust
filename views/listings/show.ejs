@@ -7,7 +7,7 @@
                     <%= listing.title %>
                 </h4>
                 <br>
-                <img src="<%= listing.image %>" class="card-img-top show-img" alt="listing-image">
+                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing-image">
                 <div class="card-body">
                     <p class="card-text">
                         Owned by <i>
@@ -46,10 +46,10 @@
                         <% for(let rev of listing.reviews ){%>
                             <div class="show-review ">
                                 <p>
-                                    <i class="fa-solid fa-circle-user"></i><b>@<%= rev.aurthor.username %></b>
+                                    <i class="fa-solid fa-circle-user" ></i><b>@<%= rev.aurthor.username %></b>
                                     <br>
-                                    &nbsp;&nbsp;  Comment: <%= rev.comment %> <br>
-                                    &nbsp;&nbsp; Rating: <p class="starability-result" data-rating="<%= rev.rating %>"></p>
+                                    Comment: <%= rev.comment %> <br>
+                                    Rating: <p class="starability-result" data-rating="<%= rev.rating %>"></p>
                                 </p>
                                 <% if (currUser && (rev.aurthor._id).equals(currUser._id)) { %>
                                     <form method="post"

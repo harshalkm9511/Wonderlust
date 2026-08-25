@@ -7,7 +7,10 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
-const {MongoStore} = require("connect-mongo");
+const { MongoStore } = require("connect-mongo");
+if (process.env.NODE_ENV != "production") {
+    require("dotenv").config();
+}
 
 const ExpressError = require("./utils/ExpressError");
 const listingRouter = require("./router/listing.js");
@@ -16,12 +19,10 @@ const User = require("./models/user");
 const userRouter = require("./router/users.js");
 
 const app = express();
-const port = 8080;
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
-async function main() {
+async function main(){
     try {
-        await mongoose.connect(MONGO_URL);
+        await mongoose.connect(process.env.MONGO_URL);
         console.log("Database is connected successfully.");
     } catch (err) {
         console.log(err);
@@ -47,8 +48,8 @@ let sessionOptions = {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true
     },
-    store:MongoStore.create({
-        mongoUrl:"mongodb://127.0.0.1:27017/wonderlust"
+    store: MongoStore.create({
+        mongoUrl: `${process.env.MONGO_URL}`
     })
 };
 app.use(session(sessionOptions));
@@ -76,11 +77,11 @@ app.all("/{*splat}", (req, res, next) => {
     next(new ExpressError(404, "Page not found!"));
 });
 
-    app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
     let { status = 400, message = "Something is going on wrong" } = err;
     res.status(status).render("error.ejs", { err });
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     console.log("server is running");
 });
