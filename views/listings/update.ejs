@@ -19,9 +19,10 @@
                                 value="<%=listing.description%>" required>
                             <div class="invalid-feedback">Please fill the description </div>
                         </div>
-
+                        
                         <div class="mb-3">
-                            <label for="image" class="form-label">Image: </label>
+                            <label for="image" class="form-label">Image: </label><br>
+                            <img src="<%= imageTransformation%>" class="col-4" alt="default"><br><br>
                             <input type="file" class="form-control" name="listing[image]" id="image"
                                 value="<%= listing.image.url%>" >
                             <div class="invalid-feedback">Provide a image URL</div>

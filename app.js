@@ -20,7 +20,7 @@ const userRouter = require("./router/users.js");
 
 const app = express();
 
-async function main(){
+async function main() {
     try {
         await mongoose.connect(process.env.MONGO_URL);
         console.log("Database is connected successfully.");
@@ -62,6 +62,7 @@ app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
+    res.locals.mapboxToken = process.env.MAPBOX_ACCESS_TOKEN;
     next();
 });
 

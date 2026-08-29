@@ -1,5 +1,5 @@
 const Listing = require("../models/lists");
-
+const geocoder = require("../utils/geocoder");
 
 module.exports.index = async (req, res) => {
     let lists = await Listing.find();
@@ -11,9 +11,11 @@ module.exports.createListing_form = (req, res) => {
 };
 
 module.exports.createListing = async (req, res) => {
+    let response = await geocoder.geocode(req.body.listing.location);
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
     newListing.image = { url: req.file.path, fileName: req.file.filename };
+    newListing.geometry = { type: "Point", coordinates: [response[0].longitude, response[0].latitude] };
     await newListing.save();
 
     req.flash("success", "New Listing Added");
@@ -24,11 +26,13 @@ module.exports.updateListing_form = async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
 
+    let imageTransformation = listing.image.url.replace("/upload", "/upload/w_300,e_blur:60");
+
     if (!listing) {
         req.flash("error", "Listing dose not exist");
         res.redirect("/");
     } else {
-        res.render("./listings/update.ejs", { listing });
+        res.render("./listings/update.ejs", { listing, imageTransformation });
     }
 };
 

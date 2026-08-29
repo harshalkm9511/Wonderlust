@@ -1,11 +1,11 @@
 body {
     display: flexbox;
     flex-wrap: wrap;
-    background-color: rgb(184, 182, 180) ;
-    
+    background-color: rgb(184, 182, 180);
+
 }
 
-.card-img-top{
+.card-img-top {
     object-fit: cover;
     height: 200px;
     width: 200px;
@@ -62,92 +62,105 @@ i {
     margin: 10px;
 }
 
-.card{
-    
+.card {
+
     margin: 20px 0px 0px 0px;
     border: none !important;
 }
-.card-title{
+
+.card-title {
     font-weight: 500;
 }
 
-.homeContainer{
-     display: flex;
+.homeContainer {
+    display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; 
-     margin: 20px 0px; 
+    justify-content: space-between;
+    margin: 20px 0px;
     /* margin-top: 40px; */
 }
 
-.formContainer, .editContainer{
+.formContainer,
+.editContainer {
     margin: 37px 0px;
 }
 
-.listing-link{
+.listing-link {
     text-decoration: none;
-     /* display: inline-block;
+    /* display: inline-block;
    margin: 10px 16px; */
 }
 
-.card-img-overlay{
+.card-img-overlay {
     opacity: 0;
 }
 
-.card-img-overlay:hover{
+.card-img-overlay:hover {
     opacity: 0.3;
     background-color: white;
 }
 
-.show-img{
+.show-img {
     height: 400px;
 }
 
-.btn-review-form-container{
+.btn-review-form-container {
     display: flex;
     justify-content: space-between;
 }
-hr{
-     margin: 40px 0px !important;
+
+hr {
+    margin: 40px 0px !important;
 }
 
-.btn-review{
+.btn-review {
     width: 400px;
     margin-bottom: 20px;
 }
 
-.edit-btn, .delete-btn, .post-btn, .review-delete{
-border-radius: 15px !important;
-}
-.reviewTextarea, .reviewInput{
+.edit-btn,
+.delete-btn,
+.post-btn,
+.review-delete {
     border-radius: 15px !important;
 }
-.show-review{
-    background-color:rgb(245, 245, 245);
+
+.reviewTextarea,
+.reviewInput {
+    border-radius: 15px !important;
+}
+
+.show-review {
+    background-color: rgb(245, 245, 245);
     border-radius: 30px;
     margin-top: 20px;
     padding: 20px;
 }
-.reviewDelete{
+
+.reviewDelete {
     display: inline !important;
 }
-#reviewUsername{
+
+#reviewUsername {
     display: inline-block;
 }
-.reviewForm{
+
+.reviewForm {
     width: 400px;
-    height: 250px;
     margin-top: 10px;
     margin-bottom: 50px;
 }
-.createReview{
+
+.createReview {
     height: 40px;
     align-self: center;
     margin: 0px 0px -10px 10px;
 }
 
-.errorContainer{
+.errorContainer {
     height: 90vh;
 }
+
 /* .errorContainer .row{
     margin: 100px auto;
 } */
@@ -158,13 +171,29 @@ border-radius: 15px !important;
 
 /* Authentication and Authorization styling */
 
-.login_Page, .sighUp_Page{
+.login_Page,
+.sighUp_Page {
     height: 500px;
 }
-.login_Page, .sighUp_Page form{
+
+.login_Page,
+.sighUp_Page form {
     margin: 100px auto;
 }
 
-/* Navbar user profile */
+/* leaflet map styling */
+#map {
+     height: 400px;
+    /* width: 450px; */
 
+    margin-top: 30px;
+    margin-bottom: 30px;
 
+    /* #map { position: absolute; top: 0; bottom: 0; width: 100%; } */
+
+     border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.434);
+
+   /* z-index: 0;*/
+    border: 1px solid black; 
+}
