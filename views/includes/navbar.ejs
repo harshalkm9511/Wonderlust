@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-body-white sticky-top">
     <div class="container-fluid">
         <i class="fa-brands fa-airbnb airbnbIcon"></i>
-        <a class="navbar-brand" href="/listing">Wonderlust</a>
+        <!-- <a class="navbar-brand" href="/listing">Wonderlust</a> -->
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
             <span class="navbar-toggler-icon"></span>
@@ -9,17 +9,17 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class=" navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/listing">Home</a>
-                <a class="nav-link" href="/listing/new">Add New Listings</a>
+                <a class="nav-link active" aria-current="page" href="/listing">Explore</a>
             </div>
             <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/listing/new">Be the owner</a>
                 <% if (currUser) { %>
-                    <a class="nav-link" href="/logout">Logout</a>
-                <% } else { %>
-                    <a class="nav-link" href="/signin">Login</a>
-                    
-                    <a class="nav-link" href="/signup">Signup</a>
-                <% } %>
+                    <a class="nav-link" href="/logout"><b>Logout</b></a>
+                    <% } else { %>
+                        <a class="nav-link" href="/signin"><b>Login</b></a>
+
+                        <a class="nav-link" href="/signup"><b>Signup</b></a>
+                        <% } %>
 
             </div>
         </div>

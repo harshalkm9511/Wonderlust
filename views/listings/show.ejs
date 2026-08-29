@@ -42,7 +42,8 @@
             <div class="btn-review-form-container col-8 offset-2">
 
                 <div class="btn-review">
-                    <p><b>All Reviews!</b></p>
+                    <% if (listing.reviews && listing.reviews.length > 0) { %>
+                     <p><b>All Reviews!</b></p>
                     <div>
                         <% for(let rev of listing.reviews ){%>
                             <div class="show-review ">
@@ -62,6 +63,7 @@
                             </div>
                             <% }%>
                     </div>
+                    <% } %>
                 </div>
 
                 <% if (currUser) { %>

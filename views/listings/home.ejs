@@ -1,23 +1,66 @@
 <% layout("/layouts/boilarplate") %>
-    
 
-            <body>
-                <div class="homeContainer">
-                    <% for(let list of lists){%>
-                        <a href="/listing/<%= list._id %>" class="listing-link">
-                            <div class="card" style="width: 18rem;">
-                                <img src="<%=list.image.url%>" class="card-img-top" alt="Listing_image">
-                                <div class="card-img-overlay"><%= list.country %></div>
-                                <div class="card-body">
+    <body>
+        <div class="filter">
+            <div class="icon">
+                <i class="fa-solid fa-fire"></i>
+                <p>Trending</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-bed"></i>
+                <p>Rooms</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-mountain-city"></i>
+                <p>Iconic cities</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-mountain"></i>
+                <p>Mountain</p>
+            </div>
+            <div class="icon">
+                <i class="fa-brands fa-fort-awesome"></i>
+                <p>Castle</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-person-swimming"></i>
+                <p>Amazing pools</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-campground"></i>
+                <p>Comping</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-cow"></i>
+                <p>Farm</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-snowflake"></i>
+                <p>Arctic</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-igloo"></i>
+                <p>Trending</p>
+            </div>
+        </div>
+        <div class="homeContainer">
+            <% for(let list of lists){%>
+                <a href="/listing/<%= list._id %>" class="listing-link">
+                    <div class="card" style="width: 18rem;">
+                        <img src="<%=list.image.url%>" class="card-img-top" alt="Listing_image">
+                        <div class="card-img-overlay">
+                            <%= list.country %>
+                        </div>
+                        <div class="card-body">
 
-                                    <p class="card-title">
-                                        <%= list.title %>
-                                    </p>
-                                    <p class="card-prise">&#8377;<%= list.price.toLocaleString() %>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                        <%}%>
-                </div>
-            </body>
+                            <p class="card-title">
+                                <%= list.title %>
+                            </p>
+                            <p class="card-prise">&#8377;<%= list.price.toLocaleString() %>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <%}%>-
+        </div>
+    </body>
