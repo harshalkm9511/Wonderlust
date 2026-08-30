@@ -78,12 +78,10 @@ i {
     justify-content: space-between;
     margin: 20px 0px;
     /* margin-top: 40px; */
-    background-color: ;
 }
 
-.formContainer,
-.editContainer {
-    margin: 37px 0px;
+.formContainer,.editContainer {
+    margin: 50px 0px 110px 0px;
 }
 
 .listing-link {
@@ -184,7 +182,7 @@ hr {
 
 /* leaflet map styling */
 #map {
-     height: 400px;
+    height: 400px;
     /* width: 450px; */
 
     margin-top: 30px;
@@ -192,9 +190,9 @@ hr {
 
     /* #map { position: absolute; top: 0; bottom: 0; width: 100%; } */
 
-     border-radius: 15px;
+    border-radius: 15px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.434);
 
-   /* z-index: 0;*/
-    border: 1px solid black; 
+    /* z-index: 0;*/
+    border: 1px solid black;
 }

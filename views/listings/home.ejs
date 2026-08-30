@@ -2,46 +2,60 @@
 
     <body>
         <div class="filter">
-            <div class="icon">
-                <i class="fa-solid fa-fire"></i>
-                <p>Trending</p>
+            <div class="icons">
+                <div class="icn">
+                    <i class="fa-solid fa-fire"></i>
+                    <p>Trending</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-bed"></i>
+                    <p>Rooms</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-mountain-city"></i>
+                    <p>Iconic cities</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-mountain"></i>
+                    <p>Mountain</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-brands fa-fort-awesome"></i>
+                    <p>Castle</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-person-swimming"></i>
+                    <p>Amazing pools</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-campground"></i>
+                    <p>Comping</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-cow"></i>
+                    <p>Farm</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-snowflake"></i>
+                    <p>Arctic</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-igloo"></i>
+                    <p>Trending</p>
+                </div>
+                <div class="icn">
+                    <i class="fa-solid fa-ship"></i>
+                    <p>Boats</p>
+                </div>
+                <div class="form-check form-switch d-flex align-items-center justify-content-between">
+                    <label class="form-check-label me-3" for="switchCheckDefault">
+                        Show total after tax
+                    </label>
+
+                    <input class="form-check-input m-0" type="checkbox" role="switch" id="switchCheckDefault">
+                </div>
             </div>
-            <div class="icon">
-                <i class="fa-solid fa-bed"></i>
-                <p>Rooms</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-mountain-city"></i>
-                <p>Iconic cities</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-mountain"></i>
-                <p>Mountain</p>
-            </div>
-            <div class="icon">
-                <i class="fa-brands fa-fort-awesome"></i>
-                <p>Castle</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-person-swimming"></i>
-                <p>Amazing pools</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-campground"></i>
-                <p>Comping</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-cow"></i>
-                <p>Farm</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-snowflake"></i>
-                <p>Arctic</p>
-            </div>
-            <div class="icon">
-                <i class="fa-solid fa-igloo"></i>
-                <p>Trending</p>
-            </div>
+
         </div>
         <div class="homeContainer">
             <% for(let list of lists){%>
@@ -56,7 +70,7 @@
                             <p class="card-title">
                                 <%= list.title %>
                             </p>
-                            <p class="card-prise">&#8377;<%= list.price.toLocaleString() %>
+                            <p class="card-prise">&#8377;<%= list.price.toLocaleString() %> <span class="gst">18% GST</span>
                             </p>
                         </div>
                     </div>
