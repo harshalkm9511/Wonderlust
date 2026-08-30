@@ -20,14 +20,23 @@ const userRouter = require("./router/users.js");
 
 const app = express();
 
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 async function main() {
-    try {
-        await mongoose.connect(process.env.MONGO_URL);
+    try {   
+        await mongoose.connect(process.env.MONGO_URL, {
+            family: 4
+        });
         console.log("Database is connected successfully.");
+
+        app.listen(process.env.PORT, () => {
+            console.log("server is running");
+        });
     } catch (err) {
-        console.log(err);
+        console.log("Database connection failed:", err);
     }
 }
+
 main();
 
 app.set("view engine", "ejs");
@@ -49,7 +58,11 @@ let sessionOptions = {
         httpOnly: true
     },
     store: MongoStore.create({
-        mongoUrl: `${process.env.MONGO_URL}`
+        mongoUrl: `${process.env.MONGO_URL}`,
+        crypto:{
+            secret:"harshalsSecrete"
+        },
+        touchAfter:24 * 3600,
     })
 };
 app.use(session(sessionOptions));
@@ -83,6 +96,3 @@ app.use((err, req, res, next) => {
     res.status(status).render("error.ejs", { err });
 });
 
-app.listen(process.env.PORT, () => {
-    console.log("server is running");
-});

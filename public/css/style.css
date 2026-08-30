@@ -196,3 +196,36 @@ hr {
     /* z-index: 0;*/
     border: 1px solid black;
 }
+
+.nav-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-box {
+    display: flex;
+    align-items: center;
+}
+.search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 25px !important;
+}
+
+.search form {
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.search .form-control {
+    border-radius: 25px ;
+}
+
+.search .btn {
+    border-radius: 25px ;
+    background-color:red ;
+}
+.search .btn:hover{
+    background-color:red ;
+}
