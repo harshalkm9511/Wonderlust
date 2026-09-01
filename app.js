@@ -24,9 +24,7 @@ const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 async function main() {
     try {   
-        await mongoose.connect(process.env.MONGO_URL, {
-            family: 4
-        });
+        await mongoose.connect(process.env.MONGO_URL);
         console.log("Database is connected successfully.");
 
         app.listen(process.env.PORT, () => {
@@ -36,7 +34,6 @@ async function main() {
         console.log("Database connection failed:", err);
     }
 }
-
 main();
 
 app.set("view engine", "ejs");
