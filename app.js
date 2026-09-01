@@ -57,7 +57,7 @@ let sessionOptions = {
     store: MongoStore.create({
         mongoUrl: `${process.env.MONGO_URL}`,
         crypto:{
-            secret:"harshalsSecrete"
+            secret:process.env.SECRET
         },
         touchAfter:24 * 3600,
     })
