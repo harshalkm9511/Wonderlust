@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const Listings = require("../models/lists.js");
 let sampleData = require("./initListing.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust"
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+const MONGO_URL = "mongodb+srv://harshalkm010_db_user:qxdaDL2Fg2sfbZTi@cluster0.dwksrif.mongodb.net/?appName=Cluster0";
 async function main() {
     await mongoose.connect(MONGO_URL);
 }
@@ -19,7 +21,7 @@ main()
 sampleData = sampleData.map((obj) => {
     return {
         ...obj,
-        owner: "6a88b065dd0d851b27651d53"
+        owner: "6a93f48933a1f65ef4b84ab5"
     }
 });
 
